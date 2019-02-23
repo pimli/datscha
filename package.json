@@ -2,6 +2,7 @@
   "name": "datscha",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://datscha-fe-code-test-api.azurewebsites.net",
   "dependencies": {
     "react": "^16.8.2",
     "react-dom": "^16.8.2",

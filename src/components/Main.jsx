@@ -16,7 +16,9 @@ class Main extends Component {
                 { label: '1001-2000', from: 1001, to: 2000 },
                 { label: '2001-5000', from: 2001, to: 5000 },
             ],
-            currentProperty: null
+            currentProperty: null,
+            premiseType: '',
+            error: ''
         }
 
         this.doLogin = this.doLogin.bind(this);
@@ -26,9 +28,9 @@ class Main extends Component {
     doLogin = (event) => {
         event.preventDefault();
 
-        if (!event.target.checkValidity()) {
-            return;
-        }
+        // if (!event.target.checkValidity()) {
+        //     return;
+        // }
 
         const data = {
             username: event.target.elements.username.value,
@@ -56,10 +58,10 @@ class Main extends Component {
                 this.getProperties();
             })
             .catch(error => {
-                //
-                console.log('error', error);
+                this.setState({ error: 'Login Error! Please check your credentials.' });
             });
     }
+
     getProperties = () => {
 
         fetch('https://datscha-fe-code-test-api.azurewebsites.net/properties', {
@@ -79,12 +81,10 @@ class Main extends Component {
             })
             .then(response => response.json())
             .then(response => {
-                //this.setState({ properties: response });
                 this.parseData(response);
             })
             .catch(error => {
-                //
-                console.log('error', error);
+                this.setState({ error: 'Couldn\'t find properties! Please try again later' })
             });
     }
 
@@ -101,24 +101,28 @@ class Main extends Component {
 
         this.setState({
             properties: all,
-            areas: areas
+            areas: areas,
+            error: ''
         });
 
         console.log('parsat', this.state)
     }
 
-    handlePropertyChange = id => {
+    handlePropertyChange = (id, premiseType) => {
         const currentProperty = this.state.properties.filter(property => {
             return property.id === id;
         });
 
         if (currentProperty.length > 0) {
-            this.setState({ currentProperty: currentProperty[0] });
+            this.setState({
+                currentProperty: currentProperty[0],
+                premiseType: premiseType
+            });
         }
     }
 
     render() {
-        if (!this.state.token) {
+        if (!this.state.token || this.state.error) {
             return (
                 <div>
                     <div className="login-card">
@@ -126,10 +130,16 @@ class Main extends Component {
 
                         <div className="body">
                             <form name="login" onSubmit={this.doLogin} noValidate>
-                                <input id="username" type="text" required defaultValue="user"></input>
-                                <input id="password" type="text" required defaultValue="password"></input>
+                                {/* <input id="username" type="text" required defaultValue="user"></input>
+                                <input id="password" type="text" required defaultValue="password"></input> */}
+
+                                <input id="username" type="text" required placeholder="username"></input>
+                                <input id="password" type="text" required placeholder="password"></input>
+
+
                                 <input type="submit" value="Logga in" />
                             </form>
+                            <div className="error-text">{this.state.error}</div>
                         </div>
                     </div>
                 </div>
@@ -143,7 +153,9 @@ class Main extends Component {
                         handlePropertyChange={this.handlePropertyChange}
 
                     />}
-                    {this.state.currentProperty && <Content property={this.state.currentProperty} />}
+                    {this.state.currentProperty && <Content property={this.state.currentProperty}
+                        premiseType={this.state.premiseType}
+                    />}
                 </div>
             );
         }

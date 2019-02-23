@@ -7,6 +7,7 @@ class Header extends Component {
         this.state = {
             premises: null,
             premiseLabels: [],
+            premiseType: '',
             properties: null
         };
 
@@ -37,6 +38,7 @@ class Header extends Component {
         this.setState({
             premises: premises,
             premiseLabels: premiseLabels,
+            premiseType: '',
             properties: null
         });
 
@@ -52,12 +54,13 @@ class Header extends Component {
 
         this.setState({
             properties: properties,
+            premiseType: e.target.value
         });
     }
 
     onPropertiesChange = (e) => {
         e.preventDefault();
-        this.props.handlePropertyChange(e.target.value);
+        this.props.handlePropertyChange(e.target.value, this.state.premiseType);
     }
 
     render() {
@@ -71,7 +74,6 @@ class Header extends Component {
                             return <option key={i} value={label.label}>{label.label}</option>
                         })}
                     </select>
-
 
                     <select id="premises" name="premises" defaultValue="default"
                         onChange={this.onPremiseChange} disabled={!this.state.premises}>

@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  font-size: 14px;
+}
+
+li {
+  margin: 0;
+  list-style-type: none;
 }
 
 select, input {
@@ -7,19 +13,27 @@ select, input {
   background-color: white;
   height: 28px;
   padding: 0 6px;
-  margin: 6px;
+  margin: 12px 6px;
   border-radius: 0;
   min-width: 150px;
+  font-size: 14px;
 }
 
 input[type=submit] {
   height: 30px;
+  background-color: #333;
+  color: white;
+  border: none;
 }
 
 #header {
   background-color: #333;
   color: white;
-  height: 70px;
   display: flex;
   align-items: center;
+}
+
+.error-text {
+  color: rgb(112, 26, 26);
+  font-weight: ''
 }

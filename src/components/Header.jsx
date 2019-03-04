@@ -16,7 +16,7 @@ class Header extends Component {
         this.onPropertiesChange = this.onPropertiesChange.bind(this);
     }
 
-    onLabelChange = (e) => {
+    onLabelChange(e) {
         e.preventDefault();
         document.getElementById('premises').selectedIndex = 0;
         document.getElementById('properties').selectedIndex = 0;
@@ -44,7 +44,7 @@ class Header extends Component {
 
     }
 
-    onPremiseChange = (e) => {
+    onPremiseChange(e) {
         e.preventDefault();
         document.getElementById('properties').selectedIndex = 0;
 
@@ -58,7 +58,7 @@ class Header extends Component {
         });
     }
 
-    onPropertiesChange = (e) => {
+    onPropertiesChange(e) {
         e.preventDefault();
         this.props.handlePropertyChange(e.target.value, this.state.premiseType);
     }

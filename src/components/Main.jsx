@@ -25,7 +25,7 @@ class Main extends Component {
         this.handlePropertyChange = this.handlePropertyChange.bind(this);
     };
 
-    doLogin = (event) => {
+    doLogin(event) {
         event.preventDefault();
 
         // if (!event.target.checkValidity()) {
@@ -62,7 +62,7 @@ class Main extends Component {
             });
     }
 
-    getProperties = () => {
+    getProperties() {
 
         fetch('https://datscha-fe-code-test-api.azurewebsites.net/properties', {
             method: 'GET',
@@ -88,7 +88,7 @@ class Main extends Component {
             });
     }
 
-    parseData = all => {
+    parseData(all) {
         let areas = all.map(property => {
             return property.premisesTypes.map(premiseType => {
                 return {
@@ -108,7 +108,7 @@ class Main extends Component {
         console.log('parsat', this.state)
     }
 
-    handlePropertyChange = (id, premiseType) => {
+    handlePropertyChange(id, premiseType) {
         const currentProperty = this.state.properties.filter(property => {
             return property.id === id;
         });
